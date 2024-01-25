@@ -1,3 +1,5 @@
+//Добавить возможность получения названия пиццы через  rawValue
+
 enum Pizza: String {
     case pepperoni = "Pepperoni"
     case cheese = "pizza 4 cheeses"
