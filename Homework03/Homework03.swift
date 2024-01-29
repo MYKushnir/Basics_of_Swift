@@ -1,67 +1,50 @@
-//1. Создать перечисление с видами пиццы (хотя бы 4 - 5 кейсов)
+//Есть словарь с видами чая и их стоимостью.
+//Есть очередь людей, которые хотят заказать чай
+//(можно представить её в виде массива видов чая,
+//которые хотят заказать).
+//Необходимо последовательно выводить в консоль сколько
+//заплатит покупатель (необходимо вывести его номер по порядку,
+//чай, который он заказал, и стоимость).
 
-enum PizzaType {
-    case margherita
-    case pepperoni
-    case hawaiian
-    case vegetarian
-    case meatLovers
-}
+let teaPrices = ["черный": 100, "зеленый": 120, "фруктовый": 80, "травяной": 90]
+let teaQueue = ["черный", "зеленый", "травяной", "фруктовый"]
 
-//2. Создать структуру пиццы, она должна содержать стоимость,
-//вид пиццы, толстое или тонкое тесто и добавки (например,
-//дополнительно добавить пепперони, помидоры, сыр).
-//Вид пиццы должен быть вложенным типом для структуры пиццы.
-//Подсказка: добавки лучше также сделать перечислением.
-
-enum Toppings {
-    case pepperoni
-    case tomatoes
-    case cheese
-}
-
-struct Pizza {
-    let price: Double
-    let type: PizzaType
-    let crust: String
-    let toppings: [Toppings]
-}
-
-//3. Создать класс пиццерии, добавить массив с возможными
-//пиццами. Переменная с массивом должна быть приватной.
-//Массив задается в инициализаторе.
-//4. Написать в классе пиццерии функции для добавления новой
-//пиццы и для получения всех доступных пицц.
-
-class Pizzeria {
-    private var pizzas: [Pizza]
-
-    init(pizzas: [Pizza]) {
-        self.pizzas = pizzas
+for (index, tea) in teaQueue.enumerated() {
+    guard let price = teaPrices[tea] else {
+        continue
     }
-
-    func addPizza(pizza: Pizza) {
-        pizzas.append(pizza)
-    }
-
-    func getAllPizzas() -> [Pizza] {
-        return pizzas
-    }
+    print("Покупатель №index+1) заказал чай tea) за price) рублей")
 }
 
-//5. Создать экземпляр класса пиццерии и добавить в него
-//несколько пицц.
+//Есть массив [-4, 5, 10, nil, 4, nil, 25, 0, nil, 16,
+//75, -20, -7, 15, 0, nil]. Необходимо создать новый массив,
+//который будет состоять из элементов старого,
+//но не должно быть nil, не должно быть 0 и 4,
+//а также массив должен быть отсортирован по возрастанию.
 
-let margherita = Pizza(price: 9.99, type: .margherita, crust: "thin", toppings: [.cheese, .tomatoes])
-let pepperoni = Pizza(price: 11.99, type: .pepperoni, crust: "thick", toppings: [.cheese, .pepperoni])
-let hawaiian = Pizza(price: 12.99, type: .hawaiian, crust: "thin", toppings: [.cheese, .tomatoes])
-let vegetarian = Pizza(price: 10.99, type: .vegetarian, crust: "thin", toppings: [.cheese, .tomatoes])
-let meatLovers = Pizza(price: 13.99, type: .meatLovers, crust: "thick", toppings: [.cheese, .pepperoni])
+let oldArray = [-4, 5, 10, nil, 4, nil, 25, 0, nil, 16, 75, -20, -7, 15, 0, nil]
+let newArray = oldArray.compactMap  $0
+                      .filter  $0 != 0 && $0 != 4
+                      .sorted()
 
-let pizzeria = Pizzeria(pizzas: [margherita, pepperoni])
-pizzeria.addPizza(pizza: hawaiian)
-pizzeria.addPizza(pizza: vegetarian)
-pizzeria.addPizza(pizza: meatLovers)
+print(newArray) // Выводит [-20, -7, 5, 10, 15, 16, 25, 75]
 
-let allPizzas = pizzeria.getAllPizzas()
-print(allPizzas) // Выводит все добавленные пиццы
+//3. Написать функцию, которая на вход принимает целое число,
+//а возвращает массив, который сформирован по следующим
+//правилам: количество элементов соответствует переданному
+//числу, массив начинается с 1, каждый последующий элемент
+//больше предыдущего в 2 раза.
+
+func generateArray(_ n: Int) -> [Int] {
+    var result = [Int]()
+    var value = 1
+    for _ in 0..<n {
+        result.append(value)
+        value *= 2
+    }
+    return result
+}
+
+// Пример вызова функции
+let generatedArray = generateArray(5)
+print(generatedArray) // Выводит [1, 2, 4, 8, 16]
